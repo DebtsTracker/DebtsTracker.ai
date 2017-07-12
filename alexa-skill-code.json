@@ -1,0 +1,301 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.MoreIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.NavigateHomeIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.NavigateSettingsIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.NextIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.PageDownIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.PageUpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.PreviousIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.ScrollDownIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.ScrollLeftIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.ScrollRightIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.ScrollUpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "NewDebtCounterpartyToUser",
+      "samples": [
+        "{counterparty} lent me {amount} {currency} for {duration}",
+        "{counterparty} lent {amount} {currency} for {duration}",
+        "I borrowed {amount} {currency} from {counterparty} for {duration}"
+      ],
+      "slots": [
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER",
+          "samples": [
+            "{amount}",
+            "{amount} {currency}"
+          ]
+        },
+        {
+          "name": "currency",
+          "type": "Currency",
+          "samples": []
+        },
+        {
+          "name": "counterparty",
+          "type": "AMAZON.Person",
+          "samples": [
+            "{counterparty}"
+          ]
+        },
+        {
+          "name": "duration",
+          "type": "AMAZON.DURATION",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "NewDebtUserToCounterparty",
+      "samples": [
+        "{counterparty} borrowed from me {amount} {currency} for {duration}",
+        "I lent to {counterparty} {amount} {currency} for {duration}",
+        "I lent {amount} {currency} to {counterparty} for {duration}",
+        "{counterparty} borrowed {amount} {currency} from me"
+      ],
+      "slots": [
+        {
+          "name": "counterparty",
+          "type": "AMAZON.Person",
+          "samples": []
+        },
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER",
+          "samples": [
+            "{amount} {currency}",
+            "{amount}"
+          ]
+        },
+        {
+          "name": "currency",
+          "type": "Currency",
+          "samples": []
+        },
+        {
+          "name": "duration",
+          "type": "AMAZON.DURATION",
+          "samples": []
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "Currency",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "U. S. D.",
+            "synonyms": [
+              "dollar",
+              "dollars",
+              "U. S. dollar",
+              "U. S. dollars",
+              "buck",
+              "bucks",
+              "greenback",
+              "greenbacks"
+            ]
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "euro",
+            "synonyms": [
+              "euros"
+            ]
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "ruble",
+            "synonyms": [
+              "rubles",
+              "Russian ruble",
+              "Russian rubles"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "Elicit.Intent-NewDebtCounterpartyToUser.IntentSlot-amount",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "How much?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-NewDebtCounterpartyToUser.IntentSlot-counterparty",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Who is lending to you?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-NewDebtUserToCounterparty.IntentSlot-counterparty",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Who?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-NewDebtUserToCounterparty.IntentSlot-amount",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "How much?"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "NewDebtCounterpartyToUser",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "amount",
+            "type": "AMAZON.NUMBER",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-NewDebtCounterpartyToUser.IntentSlot-amount"
+            }
+          },
+          {
+            "name": "currency",
+            "type": "Currency",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          },
+          {
+            "name": "counterparty",
+            "type": "AMAZON.Person",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-NewDebtCounterpartyToUser.IntentSlot-counterparty"
+            }
+          },
+          {
+            "name": "duration",
+            "type": "AMAZON.DURATION",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          }
+        ]
+      },
+      {
+        "name": "NewDebtUserToCounterparty",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "counterparty",
+            "type": "AMAZON.Person",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-NewDebtUserToCounterparty.IntentSlot-counterparty"
+            }
+          },
+          {
+            "name": "amount",
+            "type": "AMAZON.NUMBER",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-NewDebtUserToCounterparty.IntentSlot-amount"
+            }
+          },
+          {
+            "name": "currency",
+            "type": "Currency",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          },
+          {
+            "name": "duration",
+            "type": "AMAZON.DURATION",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          }
+        ]
+      }
+    ]
+  }
+}
